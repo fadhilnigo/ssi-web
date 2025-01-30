@@ -95,6 +95,7 @@ self.addEventListener('message', async function (event) {
 })
 
 self.addEventListener('fetch', function (event) {
+
   const { request } = event
 
   // Bypass navigation requests.

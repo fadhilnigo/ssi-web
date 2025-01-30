@@ -37,7 +37,7 @@ export const getJsonWithQuery = async <
   IParams extends object,
   IResponse extends object,
 >({
-  url,
+  url = '',
   params,
   options = {},
 }: IApiParams<IParams, {}>) => {
