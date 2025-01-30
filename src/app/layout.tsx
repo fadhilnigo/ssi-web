@@ -3,7 +3,7 @@ import { Nunito_Sans } from 'next/font/google';
 import { AxiosError } from 'axios';
 import Script from 'next/script';
 
-import { Footer, Navbar } from '~/@shared/_components';
+import { Footer, Navbar, Scroll } from '~/@shared/_components';
 
 import Providers from './_providers/providers';
 import ServerSideQueryProvider from './_providers/ServerSideQueryProvider';
@@ -46,6 +46,7 @@ const RootLayout = ({
     >
       <Providers>
         <ServerSideQueryProvider>
+          <Scroll />
           <Navbar />
           <main className="min-h-[calc(100vh-9.8rem)]">
             {children}
