@@ -1,13 +1,15 @@
 import Image from 'next/image';
 import { IHomeItem } from '~/app/_components/HomeSection/_hooks/useGetHomeItems';
 import { ChevronRight } from 'lucide-react';
+import cx from 'classnames';
+import Link from 'next/link';
 import { Button } from '../ui';
 
 interface IRecommendedSection {
   title: string;
-  seeAllAction: VoidFunction;
+  seeAllAction?: VoidFunction;
   data?: IHomeItem[];
-  layout?: 'HIGHLIGHT' | 'ROW';
+  layout?: 'HIGHLIGHT' | 'ROW' | 'ONECOLUMN';
 }
 
 const HighligtLayout = ({ data }: { data: IHomeItem[] }) => {
@@ -15,7 +17,7 @@ const HighligtLayout = ({ data }: { data: IHomeItem[] }) => {
   return (
     <div className="flex justify-between mt-[1.7rem]">
 
-      <div className="flex flex-col gap-[1.5rem] w-[48%] cursor-pointer">
+      <div className="flex flex-col gap-[1.5rem] w-[48%]">
         <div className="relative w-full aspect-[412/401] rounded-lg">
           <Image
             src={highlightedData.image}
@@ -40,16 +42,25 @@ const HighligtLayout = ({ data }: { data: IHomeItem[] }) => {
             {highlightedData.description}
           </p>
           <div>
-            <Button variant="link" className="text-xl font-semibold text-[#ff2400] pl-0">
-              Read More
-            </Button>
+            <Link href={`/articles/${highlightedData.id}`}>
+              <Button
+                variant="link"
+                className="text-xl font-semibold text-[#ff2400] pl-0"
+              >
+                Read More
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
       <div className="flex flex-col w-[48%] justify-between">
         {
           data.slice(1).map((item) => (
-            <div key={item.id} className="flex gap-[1.5rem] h-[32%] w-full cursor-pointer justify-between">
+            <Link
+              key={item.id}
+              className="flex gap-[1.5rem] h-[32%] w-full cursor-pointer justify-between"
+              href={`/articles/${item.id}`}
+            >
               <div className="relative w-[16.875rem] h-full rounded-lg shrink-0">
                 <Image
                   src={item.image}
@@ -71,7 +82,7 @@ const HighligtLayout = ({ data }: { data: IHomeItem[] }) => {
                 </p>
               </div>
 
-            </div>
+            </Link>
           ))
         }
       </div>
@@ -83,7 +94,11 @@ const RowLayout = ({ data }: { data: IHomeItem[] }) => (
   <div className="flex justify-between mt-[1.7rem]">
     {
       data.map((item) => (
-        <div key={item.id} className="flex flex-col gap-[1.5rem] w-[32%] cursor-pointer">
+        <Link
+          key={item.id}
+          className="flex flex-col gap-[1.5rem] w-[32%] cursor-pointer"
+          href={`/articles/${item.id}`}
+        >
           <div className="relative w-full aspect-[412/401] rounded-lg">
             <Image
               src={item.image}
@@ -109,14 +124,50 @@ const RowLayout = ({ data }: { data: IHomeItem[] }) => (
             </p>
           </div>
 
-        </div>
+        </Link>
       ))
     }
   </div>
 );
 
+const OneColumnLayout = ({ data }: { data: IHomeItem[] }) => (
+
+  <div className="flex flex-col gap-[2.625rem] mt-[1.125rem]">
+    {
+      data.map((item) => (
+        <Link
+          key={item.id}
+          className="flex flex-col gap-[1.5rem] w-full cursor-pointer justify-between"
+          href={`/articles/${item.id}`}
+        >
+          <div className="relative w-full aspect-[270/217] rounded-lg shrink-0">
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              className="rounded-lg"
+              objectFit="cover"
+            />
+          </div>
+
+          <p className="text-xs line-clamp-1">
+            {item.author}
+            {' • '}
+            {item.date}
+          </p>
+
+          <p className="font-bold text-3xl">
+            {item.title}
+          </p>
+
+        </Link>
+      ))
+        }
+  </div>
+);
+
 const RecommendedSection = ({
-  title, seeAllAction, data, layout = 'ROW',
+  title, data, layout = 'ROW', seeAllAction = () => {},
 }: IRecommendedSection) => {
   if (!data) {
     return null;
@@ -125,20 +176,29 @@ const RecommendedSection = ({
   return (
     <div className="flex flex-col">
       <div className="flex justify-between items-center">
-        <p className="text-[2.5rem] font-semibold">
+        <p className={cx(
+          'text-[2.5rem] font-semibold',
+          { 'text-[1.875rem]': layout === 'ONECOLUMN' },
+        )}
+        >
           {title}
         </p>
-        <Button
-          variant="ghost"
-          className="text-2xl font-semibold text-[#ff2400]"
-          onClick={seeAllAction}
-        >
-          See All
-          <ChevronRight />
-        </Button>
+        {
+          layout !== 'ONECOLUMN' && (
+            <Button
+              variant="ghost"
+              className="text-2xl font-semibold text-[#ff2400]"
+              onClick={seeAllAction}
+            >
+              See All
+              <ChevronRight />
+            </Button>
+          )
+        }
       </div>
       {layout === 'HIGHLIGHT' && <HighligtLayout data={data} />}
       {layout === 'ROW' && <RowLayout data={data} />}
+      {layout === 'ONECOLUMN' && <OneColumnLayout data={data} />}
     </div>
   );
 };

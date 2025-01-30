@@ -21,6 +21,19 @@ h1, h2, h3, h4, h5, h6, p {
   white-space: pre-wrap;
 }
 
+.html-content h1, .html-content h2, .html-content h3, .html-content h4, .html-content h5, .html-content h6, .html-content p {
+  margin: revert;
+  padding: revert;
+  font-weight: revert;
+  font-size: revert;
+  font-weight: revert;
+}
+
+.html-content ul, .html-content ul, .html-content ol {
+  list-style: revert;
+  padding-left: 20px;
+}
+
 input:focus {
   @apply outline-none
 }
