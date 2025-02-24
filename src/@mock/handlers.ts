@@ -177,4 +177,24 @@ const getArticleData = http.get(API_ENDPOINT.GET_ARTICLE_DATA.replace(':id', '*'
   },
 }));
 
-export const handlers: RequestHandler[] = [getCarouselItems, getHomeItems, getArticleData];
+const getArticleList = http.get(API_ENDPOINT.GET_ARTICLE_LIST, () => {
+  const res: any[] = [];
+  const photos = [LatestImage1.src, LatestImage2.src, LatestImage3.src, PopularImage1.src, PopularImage2.src, PopularImage3.src, PopularImage4.src];
+  const titles = ['Introduction to machinery safety', 'Farm Owner Fined After Death of Roofer', 'Company Fined Following Crane Collapse', 'Crown Censure Issued Following Death of Soldier', 'Using Work Equipment Safely', 'Introduction to Working at Height', 'Safe Use of Ladders and Stepladders'];
+  const descriptions = ['The farmer was fined £16,000 after incorrect equipment was used to access...', 'The £750,000 fine was issued after a crane collapsed at a dock, putting workers lives at risk...', 'A 51-year-old man suffered fatal injuries while taking part in Jackal driver training with five other...', 'Every year, there are a number of accidents from using work equipment, including machinery, Every year, there are a number of accidents from using work equipment, including machinery', 'Measures employers can take to reduce the risk of their workers falling while working at height, Measures employers can take to reduce the risk of their workers falling while working at height'];
+  for (let index = 0; index < 12; index++) {
+    res.push({
+      id: Math.floor(Math.random() * 100),
+      image: photos[Math.floor(Math.random() * 7)],
+      author: Math.floor(Math.floor(Math.random() * 2)) === 1 ? 'Rosa Pani' : 'Fadhil Khalid',
+      date: 'October 14, 2024',
+      title: titles[Math.floor(Math.random() * 7)],
+      description: descriptions[Math.floor(Math.random() * 5)],
+    });
+  }
+  return HttpResponse.json({
+    data: res,
+  });
+});
+
+export const handlers: RequestHandler[] = [getCarouselItems, getHomeItems, getArticleData, getArticleList];

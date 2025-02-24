@@ -18,12 +18,12 @@ const HighligtLayout = ({ data }: { data: IHomeItem[] }) => {
     <div className="flex justify-between mt-[1.7rem]">
 
       <div className="flex flex-col gap-[1.5rem] w-[48%]">
-        <div className="relative w-full aspect-[412/401] rounded-lg">
+        <div className="relative w-full aspect-[412/401] rounded-lg overflow-hidden">
           <Image
             src={highlightedData.image}
             alt={highlightedData.title}
             fill
-            className="rounded-lg"
+            className="rounded-lg hover:scale-125 transition-all"
             objectFit="cover"
           />
         </div>
@@ -61,12 +61,12 @@ const HighligtLayout = ({ data }: { data: IHomeItem[] }) => {
               className="flex gap-[1.5rem] h-[32%] w-full cursor-pointer justify-between"
               href={`/articles/${item.id}`}
             >
-              <div className="relative w-[16.875rem] h-full rounded-lg shrink-0">
+              <div className="relative w-[16.875rem] h-full rounded-lg shrink-0 overflow-hidden">
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
-                  className="rounded-lg"
+                  className="rounded-lg hover:scale-125 transition-all"
                   objectFit="cover"
                 />
               </div>
@@ -90,7 +90,7 @@ const HighligtLayout = ({ data }: { data: IHomeItem[] }) => {
   );
 };
 
-const RowLayout = ({ data }: { data: IHomeItem[] }) => (
+const OneRowLayout = ({ data }: { data: IHomeItem[] }) => (
   <div className="flex justify-between mt-[1.7rem]">
     {
       data.map((item) => (
@@ -99,12 +99,12 @@ const RowLayout = ({ data }: { data: IHomeItem[] }) => (
           className="flex flex-col gap-[1.5rem] w-[32%] cursor-pointer"
           href={`/articles/${item.id}`}
         >
-          <div className="relative w-full aspect-[412/401] rounded-lg">
+          <div className="relative w-full aspect-[412/401] rounded-lg overflow-hidden">
             <Image
               src={item.image}
               alt={item.title}
               fill
-              className="rounded-lg"
+              className="rounded-lg hover:scale-125 transition-all"
               objectFit="cover"
             />
           </div>
@@ -140,12 +140,12 @@ const OneColumnLayout = ({ data }: { data: IHomeItem[] }) => (
           className="flex flex-col gap-[1.5rem] w-full cursor-pointer justify-between"
           href={`/articles/${item.id}`}
         >
-          <div className="relative w-full aspect-[270/217] rounded-lg shrink-0">
+          <div className="relative w-full aspect-[270/217] rounded-lg shrink-0 overflow-hidden">
             <Image
               src={item.image}
               alt={item.title}
               fill
-              className="rounded-lg"
+              className="rounded-lg hover:scale-125 transition-all"
               objectFit="cover"
             />
           </div>
@@ -163,6 +163,46 @@ const OneColumnLayout = ({ data }: { data: IHomeItem[] }) => (
         </Link>
       ))
         }
+  </div>
+);
+
+export const RowLayout = ({ data }: { data: IHomeItem[] }) => (
+  <div className="flex mt-[1.7rem] flex-wrap gap-y-6 gap-x-2">
+    {
+      data?.map((item) => (
+        <Link
+          key={item.id}
+          className="flex flex-col gap-[1.5rem] w-[24%] cursor-pointer"
+          href={`/articles/${item.id}`}
+        >
+          <div className="relative w-full aspect-[412/401] rounded-lg overflow-hidden">
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              className="rounded-lg hover:scale-125 transition-all"
+              objectFit="cover"
+            />
+          </div>
+
+          <p className="text-xs line-clamp-1">
+            {item.author}
+            {' • '}
+            {item.date}
+          </p>
+
+          <div className="flex flex-col justify-between grow gap-[1.5rem]">
+            <p className="font-bold text-2xl line-clamp-2">
+              {item.title}
+            </p>
+            <p className="text-base line-clamp-2">
+              {item.description}
+            </p>
+          </div>
+
+        </Link>
+      ))
+    }
   </div>
 );
 
@@ -197,7 +237,7 @@ const RecommendedSection = ({
         }
       </div>
       {layout === 'HIGHLIGHT' && <HighligtLayout data={data} />}
-      {layout === 'ROW' && <RowLayout data={data} />}
+      {layout === 'ROW' && <OneRowLayout data={data} />}
       {layout === 'ONECOLUMN' && <OneColumnLayout data={data} />}
     </div>
   );
