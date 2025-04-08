@@ -12,7 +12,7 @@ export const API_ENDPOINT = {
 export const TOKEN_KEY = '_ua_t';
 export const REDIRECT_KEY = '_rp';
 
-export const ADMIN_PAGE_ROUTE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30';
+export const ADMIN_PAGE_ROUTE = 'eyJhbGciOiJIU';
 
 export enum EPaths {
   LOGIN = '/login',
