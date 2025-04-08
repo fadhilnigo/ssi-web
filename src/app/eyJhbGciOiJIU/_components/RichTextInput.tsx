@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import React, {
-  forwardRef, MutableRefObject, RefObject, useEffect, useLayoutEffect, useRef,
+  forwardRef, MutableRefObject, useEffect, useLayoutEffect, useRef,
 } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.core.css';

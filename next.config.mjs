@@ -10,9 +10,6 @@ const nextConfig = {
       },
     ],
   },
-  devIndicators: {
-    buildActivity: false,
-  },
   transpilePackages: ['msw'],
 };
 
