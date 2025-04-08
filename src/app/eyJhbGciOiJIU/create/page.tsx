@@ -42,7 +42,6 @@ const CreateArticlePage = () => {
   const [api, contextHolder] = notification.useNotification();
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
-  const [content, setContent] = useState('');
 
   const router = useRouter();
 
@@ -164,7 +163,6 @@ const CreateArticlePage = () => {
         >
           <RichTextInput
             ref={quillRef}
-            onTextChange={setContent}
           />
         </Form.Item>
 
