@@ -1,12 +1,13 @@
 'use client';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { useRef, useState } from 'react';
 import {
   Button,
   Form,
   GetProp, Input, notification, Upload, UploadProps,
 } from 'antd';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { useRouter } from 'next/navigation';
 import Quill from 'quill';
