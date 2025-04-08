@@ -37,7 +37,7 @@ const ArticlePage = () => {
       </p>
 
       <div className="flex gap-[3rem]">
-        <div className="html-content">
+        <div className="html-content flex-grow">
           {parse(data.data.articleContent.content)}
         </div>
         <RecommendedSection

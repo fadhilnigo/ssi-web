@@ -11,7 +11,7 @@ const ArticleList = () => {
   }
 
   return (
-    <RowLayout data={data.data} />
+    <RowLayout data={data.data.articles} />
   );
 };
 

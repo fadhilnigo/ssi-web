@@ -15,7 +15,7 @@ const NavbarLink = () => (
     >
       Articles
     </Link>
-    <Link
+    {/* <Link
       href="/about-us"
       className="text-sm text-textPrimaryWhite font-semibold"
     >
@@ -26,7 +26,7 @@ const NavbarLink = () => (
       className="text-sm text-textPrimaryWhite font-semibold"
     >
       Contact
-    </Link>
+    </Link> */}
   </div>
 );
 

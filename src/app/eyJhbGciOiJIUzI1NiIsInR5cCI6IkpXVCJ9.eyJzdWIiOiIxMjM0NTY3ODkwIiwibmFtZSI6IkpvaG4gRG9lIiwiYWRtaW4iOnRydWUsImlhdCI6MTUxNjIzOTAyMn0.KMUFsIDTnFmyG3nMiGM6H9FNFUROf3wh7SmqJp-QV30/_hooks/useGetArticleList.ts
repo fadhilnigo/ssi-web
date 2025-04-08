@@ -1,3 +1,5 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import { API_ENDPOINT } from '~/@api/endpoint';
 import { COMMON_API_QUERY_OPTIONS, EQueryKey } from '~/@api/query';
