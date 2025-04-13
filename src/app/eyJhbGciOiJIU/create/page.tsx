@@ -6,7 +6,9 @@ import { useRef, useState } from 'react';
 import {
   Button,
   Form,
-  GetProp, Input, notification, Upload, UploadProps,
+  Input,
+  Upload,
+  UploadProps,
 } from 'antd';
 
 import { useRouter } from 'next/navigation';
@@ -14,33 +16,17 @@ import Quill from 'quill';
 import { usePostUploadImage } from '../_hooks/useUploadImage';
 import RichTextInput from '../_components/RichTextInput';
 import { usePostArticle } from '../_hooks/usePostArticle';
-import { ADMIN_PAGE_ROUTE } from '../_constants';
-
-type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+import { EPaths } from '../_constants';
+import { beforeUpload } from '../_utils';
+import { usePopUpContext } from '../_provider/PopUpProvider';
 
 type FieldType = {
   title?: string;
   content?: string;
 };
 
-const beforeUpload = (file: FileType) => {
-  // @ts-ignore
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  if (!isJpgOrPng) {
-    // @ts-ignore
-    message.error('You can only upload JPG/PNG file!');
-  }
-  // @ts-ignore
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    // @ts-ignore
-    message.error('Image must smaller than 2MB!');
-  }
-  return isJpgOrPng && isLt2M;
-};
-
 const CreateArticlePage = () => {
-  const [api, contextHolder] = notification.useNotification();
+  const { showNotification } = usePopUpContext();
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
 
@@ -78,7 +64,7 @@ const CreateArticlePage = () => {
       image?: string;
     } = {
       title: value?.title?.trim() || '',
-      content: quillRef?.current?.getSemanticHTML() || '',
+      content: quillRef?.current?.getSemanticHTML().replaceAll('&nbsp;', ' ') || '',
       description: quillRef?.current?.getText().replace(/\s*\n\s*/g, ' ') || '',
     };
 
@@ -88,16 +74,16 @@ const CreateArticlePage = () => {
 
     uploadArticleMutation(payload, {
       onSuccess: (serverResponse) => {
-        api['success']({
+        showNotification['success']({
           message: 'Upload Article Success',
           description: 'Success creating new article, will redirected to homepage',
         });
         if (serverResponse) {
-          router.push(`/${ADMIN_PAGE_ROUTE}`);
+          router.push(EPaths.ADMIN);
         }
       },
       onError: (err) => {
-        api['error']({
+        showNotification['error']({
           message: 'Upload Article Failed',
           description:
               err.message,
@@ -108,9 +94,8 @@ const CreateArticlePage = () => {
   };
 
   return (
-    <div className="content-wrapper">
-      <p className="text-[3.125rem] font-bold">Create Article</p>
-      {contextHolder}
+    <div className="bg-white rounded-md p-4 min-h-[calc(100vh-8rem)]">
+      <p className="text-3xl font-bold">Create Article</p>
       <Upload
         name="image"
         className="w-full mb-4 aspect-[1286/608]"
@@ -128,7 +113,7 @@ const CreateArticlePage = () => {
                 setImageUrl(imageLink);
               },
               onError: (err) => {
-                api['error']({
+                showNotification['error']({
                   message: 'Upload Image Failed',
                   description:
                     err.message,

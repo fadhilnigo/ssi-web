@@ -7,6 +7,7 @@ export const API_ENDPOINT = {
   POST_UPLOAD_IMAGE: createApiEndpoint('/v1/images'),
   GET_ARTICLE_LIST: createApiEndpoint('/v1/articles'),
   CREATE_ARTICLE: createApiEndpoint('/v1/articles/create'),
+  UPDATE_ARTICLE: createApiEndpoint('/v1/articles/:id'),
 };
 
 export const TOKEN_KEY = '_ua_t';
@@ -15,7 +16,9 @@ export const REDIRECT_KEY = '_rp';
 export const ADMIN_PAGE_ROUTE = 'eyJhbGciOiJIU';
 
 export enum EPaths {
-  LOGIN = '/login',
+  LOGIN = `/${ADMIN_PAGE_ROUTE}/login`,
+  ADMIN = `/${ADMIN_PAGE_ROUTE}`,
+  CREATE = `/${ADMIN_PAGE_ROUTE}/create`,
 }
 
 export const COMMON_API_QUERY_OPTIONS = {

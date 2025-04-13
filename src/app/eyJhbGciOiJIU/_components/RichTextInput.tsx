@@ -6,8 +6,14 @@ import Quill from 'quill';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 
+interface IRichTextInput {
+  defaultValue?: string;
+  onTextChange?: Function;
+  onSelectionChange?: Function;
+}
+
 // Editor is an uncontrolled React component
-const RichTextInput = forwardRef<Quill, any>(
+const RichTextInput = forwardRef<Quill, IRichTextInput>(
   ({
     defaultValue, onTextChange, onSelectionChange,
   }, ref) => {
@@ -39,7 +45,7 @@ const RichTextInput = forwardRef<Quill, any>(
         }
 
         if (defaultValueRef.current) {
-          quill.setContents(defaultValueRef.current);
+          quill.clipboard.dangerouslyPasteHTML(defaultValueRef.current);
         }
 
         quill.on(Quill.events.TEXT_CHANGE, (...args) => {

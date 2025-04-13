@@ -2,15 +2,20 @@
 
 import { useMutation } from '@tanstack/react-query';
 import {
-  ApiFunc, IApiBaseRes, postJson,
+  ApiFunc,
+  IApiBaseRes,
+  putJson,
 } from '../_interface';
 import { API_ENDPOINT, EMutationKey } from '../_constants';
 
 type Payload = {
-  image?: string;
+  id: string;
   title: string;
   content: string;
   description: string;
+  isPopular: boolean;
+  isInsight: boolean;
+  image?: string;
 };
 
 type Response = {
@@ -21,12 +26,12 @@ type Response = {
   description: string;
 };
 
-export const postArticle: ApiFunc<Payload, IApiBaseRes<Response>> = (payload) => postJson({
-  url: API_ENDPOINT.CREATE_ARTICLE,
+export const putArticle: ApiFunc<Payload, IApiBaseRes<Response>> = (payload) => putJson({
+  url: API_ENDPOINT.UPDATE_ARTICLE.replace(':id', payload.id),
   data: payload,
 });
 
-export const usePostArticle = () => useMutation({
+export const usePutArticle = () => useMutation({
   mutationKey: [EMutationKey.NEED_LOADING],
-  mutationFn: postArticle,
+  mutationFn: putArticle,
 });

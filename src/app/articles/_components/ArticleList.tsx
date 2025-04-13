@@ -1,17 +1,30 @@
 'use client';
 
 import { RowLayout } from '~/@shared/_components/Section/RecommendedSection';
-import { useGetArticleList } from '../_hooks/useGetArticleList';
+import { Pagination } from 'antd';
+import { useArticleContext } from './ArticleProvider';
 
 const ArticleList = () => {
-  const { data } = useGetArticleList();
+  const { articles, params, setParams } = useArticleContext();
+
+  const { data } = articles;
 
   if (!data) {
     return null;
   }
 
   return (
-    <RowLayout data={data.data.articles} />
+    <>
+      <RowLayout data={data.data.articles} />
+      <Pagination
+        className="mt-4"
+        align="end"
+        current={params.page}
+        total={data?.data?.totalItem}
+        onChange={(targetPage) => setParams((prev) => ({ ...prev, page: targetPage }))}
+      />
+    </>
+
   );
 };
 

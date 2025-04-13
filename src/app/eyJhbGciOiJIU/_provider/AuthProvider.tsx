@@ -15,7 +15,7 @@ import { jwtDecode } from 'jwt-decode';
 import dayjs from 'dayjs';
 import { usePathname, useRouter } from 'next/navigation';
 import {
-  ADMIN_PAGE_ROUTE, EPaths, TOKEN_KEY,
+  EPaths, TOKEN_KEY,
 } from '../_constants';
 import { IUserJWTInfo } from '../_interface';
 
@@ -48,7 +48,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const handleLogout = () => {
     setUserInfo(null);
     setRawAccessToken('');
-    router.push(`/${ADMIN_PAGE_ROUTE}${EPaths.LOGIN}`);
+    router.push(EPaths.LOGIN);
   };
 
   // Observer when rawAccessToken state change OR Page Mount
@@ -57,7 +57,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
     // Redirect to Google OAuth no access token. (Ignore redirect for LOGIN Page as it is used to handle token extraction)
     if (!rawAccessToken && !isLoginPage) {
-      router.push(`/${ADMIN_PAGE_ROUTE}${EPaths.LOGIN}`);
+      router.push(EPaths.LOGIN);
       return;
     }
 
@@ -71,9 +71,6 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         if (isTokenExpired) {
           handleLogout();
         }
-
-        // 3. Redirect to storedRedirect if all validation has passed;
-        // router.push(`/${ADMIN_PAGE_ROUTE}`);
       } catch {
         // eslint-disable-next-line no-console
         console.log('err');

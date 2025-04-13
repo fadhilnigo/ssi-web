@@ -1,13 +1,17 @@
 'use client';
 
+import Image from 'next/image';
 import {
-  Button, Form, Input,
-  notification,
+  Button,
+  Form,
+  Input,
 } from 'antd';
 import { useRouter } from 'next/navigation';
+import SSILogo from '~/@shared/_assets/png/ssi_icon_footer.png';
 import { useAuthContext } from '../_provider/AuthProvider';
 import { usePostLogin } from '../_hooks/useLogin';
-import { ADMIN_PAGE_ROUTE } from '../_constants';
+import { EPaths } from '../_constants';
+import { usePopUpContext } from '../_provider/PopUpProvider';
 
 type FieldType = {
   email?: string;
@@ -16,11 +20,10 @@ type FieldType = {
 
 const AdminLogin = () => {
   const { setRawAccessToken } = useAuthContext();
+  const { showNotification } = usePopUpContext();
   const { mutate } = usePostLogin();
 
   const router = useRouter();
-
-  const [api, contextHolder] = notification.useNotification();
 
   const handleOnSubmit = (value: FieldType) => {
     mutate(
@@ -29,15 +32,15 @@ const AdminLogin = () => {
         onSuccess: (serverResponse) => {
           const userToken = serverResponse.data.idToken;
           setRawAccessToken(userToken);
-          api['success']({
+          showNotification['success']({
             message: 'Login Success',
             description:
               'Login success will redirect to homepage',
           });
-          router.push(`/${ADMIN_PAGE_ROUTE}`);
+          router.push(EPaths.ADMIN);
         },
         onError: () => {
-          api['error']({
+          showNotification['error']({
             message: 'Login Failed',
             description:
               'Email or password is not correct',
@@ -48,38 +51,47 @@ const AdminLogin = () => {
   };
   return (
     <div className="flex justify-center items-center h-screen">
-      {contextHolder}
-      <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
-        initialValues={{ remember: true }}
-        onFinish={handleOnSubmit}
-        autoComplete="off"
-      >
-        <Form.Item<FieldType>
-          label="email"
-          name="email"
-          rules={[{ required: true, message: 'Please input your email!' }]}
+      <div className="flex flex-col w-[60%] items-center">
+        <div className="relative w-[50%] aspect-[5/2] mb-12">
+          <Image
+            src={SSILogo}
+            alt="ssi logo"
+            className="rounded-lg"
+            fill
+          />
+        </div>
+        <Form
+          name="basic"
+          layout="vertical"
+          className="w-full"
+          onFinish={handleOnSubmit}
+          autoComplete="off"
         >
-          <Input />
-        </Form.Item>
+          <Form.Item<FieldType>
+            label="email"
+            name="email"
+            rules={[{ required: true, message: 'Please input your email!' }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item<FieldType>
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
-        >
-          <Input.Password />
-        </Form.Item>
+          <Form.Item<FieldType>
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: 'Please input your password!' }]}
+          >
+            <Input.Password />
+          </Form.Item>
 
-        <Form.Item label={null}>
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="w-full bg-backgroundPrimary"
+          >
             Submit
           </Button>
-        </Form.Item>
-      </Form>
+        </Form>
+      </div>
     </div>
   );
 };
