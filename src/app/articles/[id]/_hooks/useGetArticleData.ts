@@ -5,6 +5,7 @@ import { ApiFunc, getJsonWithQuery, IApiBaseRes } from '~/@api/requestScheme';
 
 interface IRecommendItem {
   id: string;
+  slugId: string;
   image: string;
   author: string;
   date: string;

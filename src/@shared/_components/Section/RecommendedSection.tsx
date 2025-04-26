@@ -3,6 +3,7 @@ import { IHomeItem } from '~/app/_components/HomeSection/_hooks/useGetHomeItems'
 import { ChevronRight } from 'lucide-react';
 import cx from 'classnames';
 import Link from 'next/link';
+import { IArticleItem } from '~/app/articles/_hooks/useGetArticleList';
 import { Button } from '../ui';
 
 interface IRecommendedSection {
@@ -62,7 +63,7 @@ const HighligtLayout = ({ data }: { data: IHomeItem[] }) => {
             {highlightedData.description}
           </p>
           <div>
-            <Link href={`/articles/${highlightedData.id}`}>
+            <Link href={`/articles/${highlightedData.slugId}`}>
               <Button
                 variant="link"
                 className="text-xl font-semibold text-[#ff2400] pl-0"
@@ -87,7 +88,7 @@ const HighligtLayout = ({ data }: { data: IHomeItem[] }) => {
                 'flex gap-2 w-full cursor-pointer justify-between',
                 'md:h-[32%] md:gap-[1.5rem]',
               )}
-              href={`/articles/${item.id}`}
+              href={`/articles/${item.slugId}`}
             >
               <div className={cx(
                 'relative w-[50%] aspect-square rounded-lg shrink-0 overflow-hidden',
@@ -140,7 +141,7 @@ const OneRowLayout = ({ data }: { data: IHomeItem[] }) => (
             'flex flex-col gap-2 w-full cursor-pointer',
             'md:w-[32%] md:gap-[1.5rem]',
           )}
-          href={`/articles/${item.id}`}
+          href={`/articles/${item.slugId}`}
         >
           <div className={cx(
             'relative w-full aspect-[7/3] rounded-lg overflow-hidden',
@@ -200,27 +201,29 @@ const OneColumnLayout = ({ data }: { data: IHomeItem[] }) => (
             'flex flex-col gap-2 w-[32%] cursor-pointer justify-between',
             'md:w-full md:gap-[1.5rem]',
           )}
-          href={`/articles/${item.id}`}
+          href={`/articles/${item.slugId}`}
         >
-          <div className="relative w-full aspect-[270/217] rounded-lg shrink-0 overflow-hidden">
-            <Image
-              src={item.image}
-              alt={item.title}
-              fill
-              className="rounded-lg hover:scale-125 transition-all"
-              objectFit="cover"
-            />
-          </div>
+          <div>
+            <div className="relative w-full aspect-[270/217] rounded-lg shrink-0 overflow-hidden">
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                className="rounded-lg hover:scale-125 transition-all"
+                objectFit="cover"
+              />
+            </div>
 
-          <p className="text-xs line-clamp-1">
-            {item.author}
-            {' • '}
-            {item.date}
-          </p>
+            <p className="text-xs line-clamp-1 mt-2">
+              {item.author}
+              {' • '}
+              {item.date}
+            </p>
+          </div>
 
           <p className={cx(
             'font-bold text-lg',
-            'md:text-3xl',
+            'md:text-2xl',
           )}
           >
             {item.title}
@@ -232,7 +235,7 @@ const OneColumnLayout = ({ data }: { data: IHomeItem[] }) => (
   </div>
 );
 
-export const RowLayout = ({ data }: { data: IHomeItem[] }) => (
+export const RowLayout = ({ data }: { data: IArticleItem[] }) => (
   <div className={cx(
     'flex mt-4 flex-wrap gap-4',
     'md:mt-[1.7rem] md:gap-y-6 md:gap-x-2',
@@ -246,7 +249,7 @@ export const RowLayout = ({ data }: { data: IHomeItem[] }) => (
             'flex flex-col gap-2 w-[30%] cursor-pointer',
             'md:gap-[1.5rem] md:w-[24%]',
           )}
-          href={`/articles/${item.id}`}
+          href={`/articles/${item.slugId}`}
         >
           <div className="relative w-full aspect-[412/401] rounded-lg overflow-hidden">
             <Image

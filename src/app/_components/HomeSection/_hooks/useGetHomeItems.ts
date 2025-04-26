@@ -7,6 +7,7 @@ export interface IHomeItem {
   id: string;
   image: string;
   author: string;
+  slugId: string;
   date: string;
   title: string;
   description?: string;

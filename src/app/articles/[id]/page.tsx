@@ -56,7 +56,7 @@ const ArticlePage = () => {
         <div className="html-content flex-grow">
           {parse(data.data.articleContent.content)}
         </div>
-        <div>
+        <div className="md:w-[32%]">
           <RecommendedSection
             title="Related Article"
             data={data.data.related}

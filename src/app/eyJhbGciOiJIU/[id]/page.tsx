@@ -29,7 +29,7 @@ type FieldType = {
 
 const EditArticleDetail = () => {
   const { showNotification } = usePopUpContext();
-  const params = useParams<{ id: string } >();
+  const params = useParams<{ id: string }>();
   const { data, refetch } = useGetArticleData(params.id);
 
   const [imageUrl, setImageUrl] = useState<string>(data?.data.articleContent.image || '');
@@ -62,7 +62,7 @@ const EditArticleDetail = () => {
       isInsight: boolean;
       image?: string;
     } = {
-      id: params.id,
+      id: data?.data?.articleContent?.id || '',
       title: value?.title?.trim() || '',
       content: quillRef?.current?.getSemanticHTML().replaceAll('&nbsp;', ' ') || '',
       isPopular: value.isPopular,
@@ -115,7 +115,7 @@ const EditArticleDetail = () => {
                 showNotification['error']({
                   message: 'Upload Image Failed',
                   description:
-                err.message,
+                    err.message,
                 });
               },
             },
@@ -197,7 +197,7 @@ const ArticleDetail = () => {
 
   const { showLoading, hideLoading } = usePopUpContext();
 
-  const params = useParams<{ id: string } >();
+  const params = useParams<{ id: string }>();
   const router = useRouter();
 
   const { data, isLoading } = useGetArticleData(params.id);

@@ -14,6 +14,7 @@ export interface IArticleParam {
 
 export interface IArticleItem {
   id: string;
+  slugId: string;
   image: string;
   author: string;
   date: string;

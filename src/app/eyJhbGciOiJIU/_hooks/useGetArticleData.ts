@@ -14,6 +14,8 @@ interface IRecommendItem {
 
 interface Response {
   articleContent: {
+    id: string;
+    slugid: string;
     image: string;
     title: string;
     author: string;

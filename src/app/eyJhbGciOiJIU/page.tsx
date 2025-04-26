@@ -129,19 +129,19 @@ const AdminPageContent = () => {
           <Button
             className="px-0"
             type="link"
-            onClick={() => { router.push(`${EPaths.ADMIN}/${record?.id}`); }}
+            onClick={() => { router.push(`${EPaths.ADMIN}/${record?.slugId}`); }}
           >
             {text}
           </Button>
           {
-          (record.isPopular || record.isInsight) && (
-            <p className="text-green-500">
-              {record.isPopular && 'Popular Article'}
-              {(record.isPopular && record.isInsight) && ' and '}
-              {record.isInsight && 'Insight Article'}
-            </p>
-          )
-             }
+            (record.isPopular || record.isInsight) && (
+              <p className="text-green-500">
+                {record.isPopular && 'Popular Article'}
+                {(record.isPopular && record.isInsight) && ' and '}
+                {record.isInsight && 'Insight Article'}
+              </p>
+            )
+          }
         </div>
       ),
     },
