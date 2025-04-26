@@ -34,6 +34,7 @@ const ArticleProvider: React.FC<{ children: React.ReactNode }> = ({
     sort: 'desc',
     search: '',
     sortBy: '',
+    limit: 12,
   });
 
   const result = useGetArticleList(params);

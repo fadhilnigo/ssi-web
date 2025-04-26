@@ -35,7 +35,10 @@ const HomeCarousel = () => {
           delay: 5000,
         }),
       ]}
-      className="w-[90%] flex justify-center gap-4 relative"
+      className={cx(
+        'w-[98%]  flex justify-center gap-4 relative',
+        'md:w-[90%]',
+      )}
       setApi={setApi}
     >
       <CarouselPrevButton />
@@ -47,9 +50,9 @@ const HomeCarousel = () => {
             <div
               key={item.id}
               className={cx(
-                'rounded-full w-[0.7rem] transition-all',
-                { 'bg-backgroundPrimary w-[1.2rem] h-[1.2rem]': current === index + 1 },
-                { 'bg-white w-[0.7rem] h-[0.7rem]': current !== index + 1 },
+                'rounded-full w-[0.2rem] md:w-[0.7rem] transition-all',
+                { 'bg-backgroundPrimary w-[0.5rem] h-[0.5rem] md:w-[1.2rem] md:h-[1.2rem]': current === index + 1 },
+                { 'bg-white w-[0.2rem] h-[0.2rem]  md:w-[0.7rem] md:h-[0.7rem]': current !== index + 1 },
               )}
             />
           ))

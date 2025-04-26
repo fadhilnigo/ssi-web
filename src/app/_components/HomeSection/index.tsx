@@ -1,6 +1,7 @@
 'use client';
 
 import RecommendedSection from '~/@shared/_components/Section/RecommendedSection';
+import cx from 'classnames';
 import { useRouter } from 'next/navigation';
 import { useGetHomeItem } from './_hooks/useGetHomeItems';
 
@@ -10,7 +11,11 @@ const HomeSection = () => {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col gap-[8.313rem] mb-[6.8rem]">
+    <div className={cx(
+      'flex flex-col gap-8 mb-10',
+      'md:mb-[6.8rem] md:gap-[8.313rem]',
+    )}
+    >
       <RecommendedSection
         title="Popular Articles"
         seeAllAction={() => router.push('/articles')}

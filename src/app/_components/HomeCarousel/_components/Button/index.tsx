@@ -15,7 +15,8 @@ export const CarouselPrevButton = () => {
       alt="arrow left"
       onClick={scrollPrev}
       className={cx(
-        'transition-all',
+        'transition-all hidden',
+        'md:block',
         { 'opacity-1': canScrollPrev },
         { 'opacity-0': !canScrollPrev },
       )}
@@ -31,7 +32,8 @@ export const CarouselNextButton = () => {
       alt="arrow left"
       onClick={scrollNext}
       className={cx(
-        'transition-all',
+        'transition-all hidden',
+        'md:block',
         { 'opacity-1': canScrollNext },
         { 'opacity-0': !canScrollNext },
       )}

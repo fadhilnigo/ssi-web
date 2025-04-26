@@ -8,7 +8,7 @@ import NavbarLink from './_components/NavbarLink';
 const Navbar = () => (
   <nav className="bg-backgroundPrimary">
     <div className="py-4 content-wrapper flex justify-between items-center gap-4 md:gap-0">
-      <div className="flex gap-[5.625rem]">
+      <div className="flex gap-[5.625rem] w-full justify-between md:justify-normal">
         <Link
           href="/"
         >

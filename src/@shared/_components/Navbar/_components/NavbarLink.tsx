@@ -5,8 +5,8 @@ import cx from 'classnames';
 
 const NavbarLink = () => (
   <div className={cx(
-    'flex flex-col gap-4',
-    'md:flex-row md:gap-[2.375rem] md:items-center',
+    'flex flex-row gap-4 items-center',
+    'md:gap-[2.375rem]',
   )}
   >
     <Link

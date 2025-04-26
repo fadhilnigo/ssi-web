@@ -8,6 +8,7 @@ export interface IArticleParam {
   sortBy: 'update' | '';
   page: number;
   search: string;
+  limit: number;
 }
 
 export interface IArticleItem {

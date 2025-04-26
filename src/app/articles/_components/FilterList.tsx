@@ -1,6 +1,7 @@
 'use client';
 
 import { KeyboardEvent, useState } from 'react';
+import cx from 'classnames';
 import {
   Button, Input, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue,
 } from '~/@shared/_components/ui';
@@ -53,7 +54,11 @@ const FilterList = () => {
   };
 
   return (
-    <div className="flex justify-between">
+    <div className={cx(
+      'flex flex-col-reverse justify-normal gap-4',
+      'md:flex-row md:justify-between md:gap-0',
+    )}
+    >
       <div>
         <Select
           onValueChange={hanldeSortBy}
@@ -71,12 +76,17 @@ const FilterList = () => {
           </SelectContent>
         </Select>
       </div>
-      <div className="flex w-full max-w-sm items-center space-x-2">
+      <div className={cx(
+        'flex w-full items-center space-x-2 mb-4',
+        'md:max-w-sm md:mb-0',
+      )}
+      >
         <Input
           placeholder="type here to search"
           value={search}
           onChange={(e) => { setSearch(e.target.value); }}
           onKeyDown={handlePressEnter}
+          className="flex-grow"
         />
         <Button
           type="button"
