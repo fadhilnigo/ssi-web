@@ -222,7 +222,7 @@ const OneColumnLayout = ({ data }: { data: IHomeItem[] }) => (
           </div>
 
           <p className={cx(
-            'font-bold text-lg',
+            'font-bold text-lg line-clamp-3',
             'md:text-2xl',
           )}
           >
@@ -246,7 +246,7 @@ export const RowLayout = ({ data }: { data: IArticleItem[] }) => (
         <Link
           key={item.id}
           className={cx(
-            'flex flex-col gap-2 w-[30%] cursor-pointer',
+            'flex flex-col gap-1 w-[30%] cursor-pointer',
             'md:gap-[1.5rem] md:w-[24%]',
           )}
           href={`/articles/${item.slugId}`}
@@ -268,18 +268,18 @@ export const RowLayout = ({ data }: { data: IArticleItem[] }) => (
           </p>
 
           <div className={cx(
-            'flex flex-col justify-between grow gap-2',
+            'flex flex-col justify-between grow gap-1',
             'md:gap-[1.5rem]',
           )}
           >
             <p className={cx(
-              'font-bold text-xl line-clamp-2',
+              'font-bold text-base line-clamp-2',
               'md:text-2xl',
             )}
             >
               {item.title}
             </p>
-            <p className="text-base line-clamp-2">
+            <p className="text-md line-clamp-2">
               {item.description}
             </p>
           </div>
